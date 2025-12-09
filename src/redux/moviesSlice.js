@@ -3,9 +3,9 @@ import { searchMovies, fetchMovieById } from './moviesThunks';
 
 const initialState = {
   searchTerm: '',
-  searchResults: [],      // list from OMDb search
-  selectedMovie: null,    // full details
-  recentMovies: [],       // last 10 viewed
+  searchResults: [],      
+  selectedMovie: null,   
+  recentMovies: [],      
   loading: false,
   error: null,
 };
