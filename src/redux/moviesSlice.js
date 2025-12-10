@@ -10,6 +10,7 @@ const initialState = {
   error: null,
 };
 
+
 const moviesSlice = createSlice({
   name: 'movies',
   initialState,
@@ -47,6 +48,7 @@ const moviesSlice = createSlice({
       .addCase(searchMovies.pending, (state) => {
         state.loading = true;
         state.error = null;
+        state.searchResults = [];
       })
       .addCase(searchMovies.fulfilled, (state, action) => {
         state.loading = false;
@@ -55,6 +57,7 @@ const moviesSlice = createSlice({
       .addCase(searchMovies.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || 'Search failed';
+        state.searchResults = [];
       })
       // fetchMovieById
       .addCase(fetchMovieById.pending, (state) => {
