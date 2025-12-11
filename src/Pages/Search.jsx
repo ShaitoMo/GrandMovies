@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Grid, Typography } from "@mui/material";
+
+import { Grid, Typography, Alert } from "@mui/material";
 
 import SearchBar from "../components/searchBar";
 import MovieCard from "../components/MovieCard";
@@ -28,7 +29,7 @@ export default function Search() {
       <div className={styles.header}>
         <h2 className={styles.pageTitle}>🎬 Search Movies</h2>
         <p className={styles.pageSubtitle}>
-          Find movies by title, year, or keywords.
+          Explore. Discover. Watch.
         </p>
       </div>
 
@@ -41,10 +42,21 @@ export default function Search() {
 
   
       {!loading && error && !firstLoad && (
-        <Typography color="error" sx={{ mt: 2 }}>
+  <>
+    {error === "Too many results."
+      ? (
+        <Alert severity="warning" sx={{ mt: 2 }}>
+          Too many matching movies found. Please type a more specific title
+          (for example: include more words or the year).
+        </Alert>
+      ) : (
+        <Alert severity="error" sx={{ mt: 2 }}>
           {error}
-        </Typography>
+        </Alert>
       )}
+  </>
+)}
+
 
     
       {!loading &&

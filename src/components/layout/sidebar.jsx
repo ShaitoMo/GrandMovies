@@ -11,31 +11,44 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const drawerWidth = 220;
+const drawerWidth = 220;   // set any width here
 
 export default function Sidebar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // Detect if screen is small (mobile/tablet)
   const isMobile = useMediaQuery("(max-width:900px)");
+  
+  const navigate = useNavigate();
+
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
   const drawerContent = (
-    <Box sx={{ width: drawerWidth }}>
+    <Box sx={{ width: drawerWidth, overflow: "hidden" }}>
       <Toolbar />
       <List>
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton
+            onClick={() => {
+              navigate("/");
+              if (isMobile) setMobileOpen(false);
+            }}
+          >
             <ListItemText primary="Search Movies" />
           </ListItemButton>
         </ListItem>
 
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton
+            onClick={() => {
+              navigate("/recent");
+              if (isMobile) setMobileOpen(false);
+            }}
+          >
             <ListItemText primary="Recent Movies" />
           </ListItemButton>
         </ListItem>
@@ -45,11 +58,9 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* Mobile Menu Button */}
       {isMobile && (
         <IconButton
           color="inherit"
-          aria-label="open drawer"
           onClick={handleDrawerToggle}
           sx={{
             position: "fixed",
@@ -68,12 +79,12 @@ export default function Sidebar() {
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // improves mobile performance
-          }}
+          ModalProps={{ keepMounted: true }}
           sx={{
             "& .MuiDrawer-paper": {
-              width: drawerWidth,
+              width: `${drawerWidth}px !important`,
+              boxSizing: "border-box",
+              overflowX: "hidden",
             },
           }}
         >
@@ -81,7 +92,7 @@ export default function Sidebar() {
         </Drawer>
       )}
 
-      {/* Desktop Permanent Drawer */}
+      {/* Desktop Drawer */}
       {!isMobile && (
         <Drawer
           variant="permanent"
@@ -89,8 +100,9 @@ export default function Sidebar() {
             width: drawerWidth,
             flexShrink: 0,
             "& .MuiDrawer-paper": {
-              width: drawerWidth,
+              width: `${drawerWidth}px !important`,
               boxSizing: "border-box",
+              overflowX: "hidden",
             },
           }}
         >

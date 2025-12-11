@@ -1,0 +1,42 @@
+
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.title {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.metaRow {
+  margin-top: 4px;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.posterWrapper {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  max-width: 320px;
+}
+
+.sectionBlock {
+  margin-top: 16px;
+}
+
+.sectionTitle {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.sectionText {
+  font-size: 0.95rem;
+  color: #444;
+}

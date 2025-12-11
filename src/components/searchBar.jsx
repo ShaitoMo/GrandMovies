@@ -46,6 +46,7 @@ export default function SearchBar() {
         display: "flex",
         gap: 2,
         width: "100%",
+      
         maxWidth: 600,
         mt: 2,
         mb: 3,

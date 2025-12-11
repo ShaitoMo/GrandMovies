@@ -6,18 +6,26 @@ import {
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { saveRecentMovie } from "../utils/localStorage";
 
 export default function MovieCard({ movie }) {
   const navigate = useNavigate();
 
-  const handleClick = () => {
-    navigate(`/movies/${movie.imdbID}`);
-  };
+const handleClick = () => {
+  saveRecentMovie({
+    imdbID: movie.imdbID,
+    Title: movie.Title,
+    Year: movie.Year,
+    Poster: movie.Poster,
+  });
+
+  navigate(`/movies/${movie.imdbID}`);
+};
 
   return (
     <Card
       sx={{
-        width: 220,           // FIXED width for every card
+        width: 220,          
         borderRadius: 2,
         overflow: "hidden",
       }}
@@ -28,7 +36,7 @@ export default function MovieCard({ movie }) {
           height="330"
           image={movie.Poster !== "N/A" ? movie.Poster : "/placeholder.jpg"}
           alt={movie.Title}
-          sx={{ objectFit: "cover" }}    // ensures consistent look
+          sx={{ objectFit: "cover" }}   
         />
 
         <CardContent>
