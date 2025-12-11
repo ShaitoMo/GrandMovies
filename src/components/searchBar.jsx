@@ -1,35 +1,44 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Box, TextField, Button } from "@mui/material";
+
 import { searchMovies } from "../redux/moviesThunks";
 import { setSearchTerm } from "../redux/moviesSlice";
-
+import useDebounce from "../hooks/useDebounce";
 
 export default function SearchBar() {
   const dispatch = useDispatch();
   const searchTerm = useSelector((state) => state.movies.searchTerm);
 
-function handleChange(e) {
-  dispatch(setSearchTerm(e.target.value));
-}
+  const debouncedTerm = useDebounce(searchTerm, 1000) ; // 1 seconds debounce
 
-function handleSearch() {
-  const term = searchTerm.trim();
+  useEffect(() => {
+    const term = debouncedTerm.trim();
+    if (term.length >= 3) {
+      dispatch(searchMovies(term));
+    }
+  }, [debouncedTerm, dispatch]);
 
-  // Require minimum 3 characters
-  if (term.length < 3) {
-    alert("Please type at least 3 characters.");
-    return;
+  function handleChange(e) {
+    dispatch(setSearchTerm(e.target.value));
   }
 
-  dispatch(searchMovies(term));
-}
+  function handleSearch() {
+    const term = searchTerm.trim();
 
-function handleEnter(e) {
-  if (e.key === "Enter") {
-    handleSearch();
+    if (term.length < 3) {
+      alert("Please type at least 3 characters.");
+      return;
+    }
+
+    dispatch(searchMovies(term));
   }
-}
 
+  function handleEnter(e) {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  }
 
   return (
     <Box

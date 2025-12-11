@@ -21,9 +21,9 @@ const moviesSlice = createSlice({
     clearSelectedMovie(state) {
       state.selectedMovie = null;
     },
-    // add/refresh recent movie list (max 10, unique by imdbID)
+
     addRecentMovie(state, action) {
-      const movie = action.payload; // minimal { imdbID, Title, Year, Poster }
+      const movie = action.payload; 
 
       // remove if already exists
       state.recentMovies = state.recentMovies.filter(
